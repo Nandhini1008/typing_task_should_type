@@ -1,0 +1,8 @@
+{
+    "wordCount": 25,
+    "complexity": "easy",
+    "settings": {
+        "generateOnStart": true,
+        "fallbackToWordlist": true
+    }
+}

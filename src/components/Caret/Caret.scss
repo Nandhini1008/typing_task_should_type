@@ -1,0 +1,47 @@
+.caret {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    transform: translateY(2px); // Align with text baseline
+
+    &--smooth {
+        transition: all 0.1s ease-out;
+    }
+
+    &--line {
+        width: 2px;
+        height: 1.8em; // Match line-height from typing area
+        background-color: var(--color-caret);
+    }
+
+    &--block {
+        width: 0.75rem;
+        height: 1.8em; // Match line-height
+        background-color: var(--color-caret);
+        opacity: 0.5;
+    }
+
+    &--underline {
+        width: 0.75rem;
+        height: 2px;
+        bottom: 0;
+        background-color: var(--color-caret);
+    }
+
+    &--active {
+        animation: blink 1s step-end infinite;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    50.1%,
+    100% {
+        opacity: 0;
+    }
+}

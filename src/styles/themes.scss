@@ -1,0 +1,83 @@
+// Theme CSS variables
+:root {
+    // Will be dynamically updated based on theme selection
+    --color-background: #1a1a1a;
+    --color-surface: #242424;
+    --color-text: #e0e0e0;
+    --color-text-secondary: #888888;
+    --color-primary: #646cff;
+    --color-secondary: #535bf2;
+    --color-error: #ef4444;
+    --color-correct: #22c55e;
+    --color-incorrect: #ef4444;
+    --color-extra: #f97316;
+    --color-caret: #646cff;
+    --color-border: #333333;
+    --color-primary-opacity: rgba(100, 108, 255, 0.2);
+
+    // Font size (can be customized)
+    --font-size-typing: 1.5rem;
+}
+
+// Theme application
+[data-theme='dark-default'] {
+    --color-background: #1a1a1a;
+    --color-surface: #242424;
+    --color-text: #e0e0e0;
+    --color-text-secondary: #888888;
+    --color-primary: #646cff;
+    --color-secondary: #535bf2;
+    --color-error: #ef4444;
+    --color-correct: #22c55e;
+    --color-incorrect: #ef4444;
+    --color-extra: #f97316;
+    --color-caret: #646cff;
+    --color-border: #333333;
+}
+
+[data-theme='light-default'] {
+    --color-background: #f8f8f8;
+    --color-surface: #ffffff;
+    --color-text: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-primary: #646cff;
+    --color-secondary: #535bf2;
+    --color-error: #ef4444;
+    --color-correct: #22c55e;
+    --color-incorrect: #ef4444;
+    --color-extra: #f97316;
+    --color-caret: #646cff;
+    --color-border: #e0e0e0;
+}
+
+[data-theme='dracula'] {
+    --color-background: #282a36;
+    --color-surface: #353746;
+    --color-text: #f8f8f2;
+    --color-text-secondary: #6272a4;
+    --color-primary: #bd93f9;
+    --color-secondary: #ff79c6;
+    --color-error: #ff5555;
+    --color-correct: #50fa7b;
+    --color-incorrect: #ff5555;
+    --color-extra: #ffb86c;
+    --color-caret: #bd93f9;
+    --color-border: #44475a;
+}
+
+[data-theme='nord'] {
+    --color-background: #2e3440;
+    --color-surface: #3b4252;
+    --color-text: #eceff4;
+    --color-text-secondary: #4c566a;
+    --color-primary: #88c0d0;
+    --color-secondary: #81a1c1;
+    --color-error: #bf616a;
+    --color-correct: #a3be8c;
+    --color-incorrect: #bf616a;
+    --color-extra: #d08770;
+    --color-caret: #88c0d0;
+    --color-border: #434c5e;
+}
+
+// Add more themes as needed...

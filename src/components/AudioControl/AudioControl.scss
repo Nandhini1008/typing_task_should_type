@@ -1,0 +1,31 @@
+.audio-control {
+    position: fixed;
+    bottom: $spacing-6;
+    right: $spacing-6;
+    z-index: 100;
+
+    &__button {
+        background-color: var(--color-surface);
+        border: 2px solid var(--color-border);
+        border-radius: $radius-full;
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all $transition-base;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        &--on {
+            background-color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+    }
+}
