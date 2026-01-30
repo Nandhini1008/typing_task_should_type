@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { AppRoutes } from './routes';
 import { useSettingsStore } from './store/settings.store';
 import { getTheme } from './constants/themes';

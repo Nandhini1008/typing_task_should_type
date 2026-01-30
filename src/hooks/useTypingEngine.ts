@@ -154,6 +154,8 @@ export function useTypingEngine(
         setWords(updatedWords);
     }, [words, currentWordIndex, currentCharIndex, input]);
 
+    // Unused handleSpace function (commented out to fix TS6133)
+    /*
     const handleSpace = useCallback(() => {
         if (!startTimeRef.current) {
             startTimeRef.current = Date.now();
@@ -181,6 +183,7 @@ export function useTypingEngine(
             completeTestHandler();
         }
     }, [words, currentWordIndex, mode, modeValue, startTest]);
+    */
 
     const completeTestHandler = useCallback(() => {
         if (!startTimeRef.current || isTestComplete) return;

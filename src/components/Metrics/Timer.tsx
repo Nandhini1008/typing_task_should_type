@@ -8,7 +8,7 @@ export interface TimerProps {
 
 export const Timer: React.FC<TimerProps> = ({
   timeRemaining,
-  mode = 'countdown',
+  // mode = 'countdown', // Unused parameter
 }) => {
   const displayTime = Math.ceil(timeRemaining);
 

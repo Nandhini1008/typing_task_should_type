@@ -1,7 +1,7 @@
 /**
  * Hook for managing caret position
  */
-import { useState, useEffect, useRef, RefObject } from 'react';
+import { useState, useEffect, RefObject } from 'react';
 
 export interface CaretPosition {
     left: number;

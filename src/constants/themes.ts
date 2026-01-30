@@ -166,5 +166,5 @@ export const THEMES: Record<string, Theme> = {
 };
 
 export const getTheme = (themeId: string): Theme => {
-    return THEMES[themeId] ?? THEMES['dark-default'];
+    return (THEMES[themeId] ?? THEMES['dark-default']) as Theme;
 };

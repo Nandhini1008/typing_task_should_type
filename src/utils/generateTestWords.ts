@@ -24,6 +24,9 @@ export function generateTestWords(
     for (let i = 0; i < count; i++) {
         let word = wordList[Math.floor(Math.random() * wordList.length)];
 
+        // Skip if word is undefined
+        if (!word) continue;
+
         // Add numbers occasionally if enabled
         if (numbers && Math.random() < 0.1) {
             word = Math.floor(Math.random() * 1000).toString();
@@ -35,7 +38,9 @@ export function generateTestWords(
                 PUNCTUATION_CHARS[
                 Math.floor(Math.random() * PUNCTUATION_CHARS.length)
                 ];
-            word += punctChar;
+            if (punctChar) {
+                word += punctChar;
+            }
         }
 
         words.push(word);

@@ -61,9 +61,10 @@ export function useTypingTest(
                 setError(null);
                 let generatedWords: string[];
 
-                // Import JSON config for Gemini settings
-                const geminiConfig = await import('@/config/gemini.config.json');
-                const { wordCount: configWordCount, complexity } = geminiConfig.default;
+                // Fetch configuration from backend API (or use default)
+                const { configService } = await import('@/services/config.service');
+                const config = await configService.getConfig();
+                const { wordCount: configWordCount, complexity } = config;
 
                 try {
                     // Always try to generate with Gemini first
