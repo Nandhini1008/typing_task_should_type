@@ -4,12 +4,12 @@
  */
 import { useState, useCallback, useEffect, useRef } from 'react';
 import type { Word, Character } from '@/types/Word';
-import type { TestResult } from '@/types/TestResult';
+// import type { TestResult } from '@/types/TestResult'; // Unused
 import { calculateWPM } from '@/utils/calculateWPM';
 import { calculateAccuracy } from '@/utils/calculateAccuracy';
 import { useTestStore } from '@/store/test.store';
-import { useUserStore } from '@/store/user.store';
-import { trackTestComplete } from '@/services/analytics.service';
+// import { useUserStore } from '@/store/user.store'; // Unused
+// import { trackTestComplete } from '@/services/analytics.service'; // Unused
 
 export interface TypingEngineState {
     words: Word[];
@@ -31,12 +31,12 @@ export interface TypingEngineActions {
 }
 
 export function useTypingEngine(
-    testWords: string[],
-    mode: 'time' | 'words' | 'quote',
-    modeValue: number
+    testWords: string[]
+    // mode: 'time' | 'words' | 'quote', // Unused
+    // modeValue: number // Unused
 ): [TypingEngineState, TypingEngineActions] {
-    const { startTest, completeTest, setStatus } = useTestStore();
-    const { addTestResult } = useUserStore();
+    const { startTest, /* completeTest, */ setStatus } = useTestStore();
+    // const { addTestResult } = useUserStore(); // Unused
     const [words, setWords] = useState<Word[]>([]);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -185,6 +185,8 @@ export function useTypingEngine(
     }, [words, currentWordIndex, mode, modeValue, startTest]);
     */
 
+    // Unused completeTestHandler function (commented out to fix TS6133)
+    /*
     const completeTestHandler = useCallback(() => {
         if (!startTimeRef.current || isTestComplete) return;
 
@@ -227,6 +229,7 @@ export function useTypingEngine(
         completeTest,
         addTestResult,
     ]);
+    */
 
     const reset = useCallback(() => {
         setCurrentWordIndex(0);
