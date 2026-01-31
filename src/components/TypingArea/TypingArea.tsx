@@ -88,12 +88,14 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
     };
 
     // Use beforeinput if available, otherwise fall back to input
-    if ('onbeforeinput' in input) {
-      input.addEventListener('beforeinput', handleBeforeInput as EventListener);
-      return () => input.removeEventListener('beforeinput', handleBeforeInput as EventListener);
+    const supportsBeforeInput = 'onbeforeinput' in input;
+    
+    if (supportsBeforeInput) {
+      (input as HTMLElement).addEventListener('beforeinput', handleBeforeInput as EventListener);
+      return () => (input as HTMLElement).removeEventListener('beforeinput', handleBeforeInput as EventListener);
     } else {
-      input.addEventListener('input', handleInput);
-      return () => input.removeEventListener('input', handleInput);
+      (input as HTMLInputElement).addEventListener('input', handleInput);
+      return () => (input as HTMLInputElement).removeEventListener('input', handleInput);
     }
   }, [isMobile, isActive, onKeyPress, onBackspace, onSpace]);
 
