@@ -4,6 +4,9 @@ import { generateTestWords } from '@/utils/generateTestWords';
 import { loadWordlist } from '@/services/wordlist.service';
 import { useMetrics } from '@/hooks/useMetrics';
 import { ttsService } from '@/services/tts.service';
+import { useErrorTrackingStore } from '@/store/errorTracking.store';
+import { useSentenceTrackingStore } from '@/store/sentenceTracking.store';
+// import { autoExportService } from '@/services/autoExport.service'; // Available for manual use
 
 export interface TypingTestState {
     words: Word[];
@@ -52,6 +55,15 @@ export function useTypingTest(
     const lastErrorWordRef = useRef('');
 
     const metrics = useMetrics(correctChars, incorrectChars, startTime);
+    const { trackError, startNewTest } = useErrorTrackingStore();
+    const {
+        setExpectedSentence,
+        trackSentenceAttempt,
+        startNewTest: startNewSentenceTest
+    } = useSentenceTrackingStore();
+
+    // Track original sentence for comparison
+    const originalSentenceRef = useRef<string>('');
 
     // Load words on mount
     useEffect(() => {
@@ -74,6 +86,13 @@ export function useTypingTest(
                         complexity: complexity as 'easy' | 'medium' | 'hard',
                     });
                     console.log('Generated sentence:', geminiService.getLastGeneratedSentence());
+
+                    // Store the expected sentence for comparison
+                    const fullSentence = geminiService.getLastGeneratedSentence();
+                    if (fullSentence) {
+                        setExpectedSentence(fullSentence);
+                        originalSentenceRef.current = fullSentence;
+                    }
                 } catch (llmError) {
                     console.warn('Failed to generate with LLM, falling back to wordlist:', llmError);
                     // Fallback to static wordlist
@@ -229,8 +248,30 @@ export function useTypingTest(
         // Check if there are extra characters
         const hasExtraChars = currentWord.characters.length > currentWord.value.length;
 
-        // Prevent moving to next word if there are errors or extra characters
+        // Track error silently BEFORE allowing progression (even if they fixed it)
         if (!isWordCorrect || hasExtraChars || currentCharIndex < currentWord.value.length) {
+            // Silently track the error with what they typed
+            const typedWord = currentWord.characters.map(c => c.value).join('');
+            const charErrors = currentWord.characters
+                .map((char, idx) => ({
+                    position: idx,
+                    expected: currentWord.value[idx] || '',
+                    typed: char.value
+                }))
+                .filter((_, idx) => {
+                    if (idx >= currentWord.value.length) return true; // extra chars
+                    return currentWord.characters[idx]?.status !== 'correct';
+                });
+
+            if (charErrors.length > 0 || typedWord !== currentWord.value) {
+                trackError(
+                    currentWord.value,
+                    typedWord,
+                    showWordSuggestion, // true if they used the helper
+                    charErrors
+                );
+            }
+
             // Don't allow progression - user must fix the word first
             return;
         }
@@ -268,10 +309,23 @@ export function useTypingTest(
     };
 
     const completeTest = () => {
+        // Capture the user's typed sentence BEFORE any modifications
+        const userTypedSentence = words.map(word => {
+            // Get exactly what user typed for each word
+            return word.characters.map(char => char.value).join('');
+        }).join(' ');
+
+        // Track the sentence comparison
+        trackSentenceAttempt(userTypedSentence);
+
         setIsTestComplete(true);
     };
 
     const reset = () => {
+        // Start a new test session for error tracking
+        startNewTest();
+        startNewSentenceTest();
+
         setCurrentWordIndex(0);
         setCurrentCharIndex(0);
         setCorrectChars(0);

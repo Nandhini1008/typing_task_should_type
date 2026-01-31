@@ -8,6 +8,7 @@ import type { Word, Character } from '@/types/Word';
 import { calculateWPM } from '@/utils/calculateWPM';
 import { calculateAccuracy } from '@/utils/calculateAccuracy';
 import { useTestStore } from '@/store/test.store';
+// import { useErrorTrackingStore } from '@/store/errorTracking.store'; // Not used in this hook
 // import { useUserStore } from '@/store/user.store'; // Unused
 // import { trackTestComplete } from '@/services/analytics.service'; // Unused
 
@@ -36,6 +37,7 @@ export function useTypingEngine(
     // modeValue: number // Unused
 ): [TypingEngineState, TypingEngineActions] {
     const { startTest, /* completeTest, */ setStatus } = useTestStore();
+    // const { trackError, startNewTest } = useErrorTrackingStore(); // Unused in this hook
     // const { addTestResult } = useUserStore(); // Unused
     const [words, setWords] = useState<Word[]>([]);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);

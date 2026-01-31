@@ -1,0 +1,108 @@
+/**
+ * Harry Potter Magical Theme - CSS Variables
+ * Enchanting colors for young wizards and witches (ages 4-13)
+ */
+
+/* === MAGICAL FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:wght@400;500;600&display=swap');
+
+:root {
+    /* === MAGICAL BACKGROUNDS === */
+    --magic-night-sky: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #16213e 100%);
+    --magic-dark: #0a0a12;
+    --magic-deep-purple: #16213e;
+
+    /* === HOUSE COLORS (Gryffindor Default) === */
+    --house-primary: #740001;
+    /* Deep scarlet red */
+    --house-secondary: #D3A625;
+    /* Gold */
+    --house-accent: #FFD700;
+    /* Bright gold */
+
+    /* === MAGICAL ELEMENTS === */
+    --parchment: #f4e8d0;
+    /* Old paper */
+    --parchment-dark: #e6d7b8;
+    /* Aged parchment */
+    --ink-black: #1a1a1a;
+    /* Ink text */
+    --spell-blue: #4A90E2;
+    /* Spell effects */
+    --spell-purple: #9F7AEA;
+    /* Magic glow */
+    --sparkle-gold: #FFD700;
+    /* Sparkles */
+    --success-green: #48BB78;
+    /* Success */
+    --wand-brown: #8B4513;
+    /* Wand wood */
+
+    /* === INTERACTIVE COLORS === */
+    --correct-magic: #48BB78;
+    /* Correct letter - green glow */
+    --incorrect-magic: #FC8181;
+    /* Wrong letter - soft red */
+    --pending-magic: #A0AEC0;
+    /* Not typed yet */
+
+    /* === TEXT COLORS === */
+    --text-light: #f7fafc;
+    /* Bright white */
+    --text-gold: #D3A625;
+    /* Golden text */
+    --text-muted: #CBD5E0;
+    /* Muted text */
+
+    /* === SHADOWS & GLOWS === */
+    --glow-gold: 0 0 20px rgba(211, 166, 37, 0.6);
+    --glow-magic: 0 0 30px rgba(159, 122, 234, 0.5);
+    --glow-spell: 0 0 15px rgba(74, 144, 226, 0.7);
+    --shadow-deep: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+    /* === ANIMATIONS === */
+    --transition-magic: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* === FONTS === */
+    --font-magical: 'Cinzel', serif;
+    /* Magical headers */
+    --font-parchment: 'Lora', serif;
+    /* Reading text */
+    --font-spell: 'JetBrains Mono', monospace;
+    /* Typing text */
+}
+
+/* === HOUSE THEMES === */
+[data-house="gryffindor"] {
+    --house-primary: #740001;
+    --house-secondary: #D3A625;
+    --house-accent: #FFD700;
+}
+
+[data-house="slytherin"] {
+    --house-primary: #1A472A;
+    /* Dark green */
+    --house-secondary: #AAAAAA;
+    /* Silver */
+    --house-accent: #5D5D5D;
+    /* Dark silver */
+}
+
+[data-house="ravenclaw"] {
+    --house-primary: #0E1A40;
+    /* Dark blue */
+    --house-secondary: #946B2D;
+    /* Bronze */
+    --house-accent: #CD7F32;
+    /* Bright bronze */
+}
+
+[data-house="hufflepuff"] {
+    --house-primary: #FFD700;
+    /* Yellow */
+    --house-secondary: #000000;
+    /* Black */
+    --house-accent: #ECCC68;
+    /* Soft yellow */
+}
