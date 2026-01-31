@@ -46,37 +46,55 @@ export const TypingArea: React.FC<TypingAreaProps> = ({
     if (!isMobile || !mobileInputRef.current) return;
 
     const input = mobileInputRef.current;
-    let lastValue = '';
 
+    // Use beforeinput event for better control
+    const handleBeforeInput = (e: InputEvent) => {
+      if (!isActive) return;
+
+      // Handle different input types
+      if (e.inputType === 'deleteContentBackward') {
+        e.preventDefault();
+        onBackspace();
+      } else if (e.inputType === 'insertText' && e.data) {
+        e.preventDefault();
+        if (e.data === ' ') {
+          onSpace();
+        } else {
+          onKeyPress(e.data);
+        }
+      }
+    };
+
+    // Fallback for browsers that don't support beforeinput with data
     const handleInput = (e: Event) => {
       if (!isActive) return;
       
       const target = e.target as HTMLInputElement;
-      const newValue = target.value;
+      const value = target.value;
 
-      if (newValue.length > lastValue.length) {
-        // Character added
-        const addedChar = newValue[newValue.length - 1];
-        if (addedChar) {
-          if (addedChar === ' ') {
+      // If value exists, process it character by character
+      if (value.length > 0) {
+        const char = value[value.length - 1];
+        if (char) {
+          if (char === ' ') {
             onSpace();
           } else {
-            onKeyPress(addedChar);
+            onKeyPress(char);
           }
         }
-      } else if (newValue.length < lastValue.length) {
-        // Character deleted
-        onBackspace();
+        // Clear immediately
+        target.value = '';
       }
-
-      lastValue = newValue;
-      // Keep input empty to allow continuous typing
-      target.value = '';
-      lastValue = '';
     };
 
-    input.addEventListener('input', handleInput);
-    return () => input.removeEventListener('input', handleInput);
+    // Use beforeinput if available, otherwise fall back to input
+    if ('onbeforeinput' in input) {
+      input.addEventListener('beforeinput', handleBeforeInput as EventListener);
+      return () => input.removeEventListener('beforeinput', handleBeforeInput as EventListener);
+    } else {
+      input.addEventListener('input', handleInput);
+      return () => input.removeEventListener('input', handleInput);
+    }
   }, [isMobile, isActive, onKeyPress, onBackspace, onSpace]);
 
   // Handle desktop keyboard events
