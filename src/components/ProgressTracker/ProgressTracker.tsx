@@ -13,6 +13,7 @@ export const ProgressTracker: React.FC = () => {
     selectedHouse,
     housePoints,
     currentYear,
+    currentLevel,
     experiencePoints,
     achievements,
     spellsCast,
@@ -22,9 +23,8 @@ export const ProgressTracker: React.FC = () => {
 
   const [showChangeHouseModal, setShowChangeHouseModal] = useState(false);
 
-  const xpNeededForNextYear = currentYear < 7 ? currentYear * 500 : 0;
-  const xpProgress =
-    currentYear < 7 ? (experiencePoints / xpNeededForNextYear) * 100 : 100;
+  const XP_PER_LEVEL = 500;
+  const xpProgress = (experiencePoints / XP_PER_LEVEL) * 100;
   const unlockedAchievements = achievements.filter((a) => a.unlockedAt);
 
   const handleChangeHouse = (
@@ -71,7 +71,9 @@ export const ProgressTracker: React.FC = () => {
         {/* Hogwarts Year Progress */}
         <div className="progress-tracker__year">
           <div className="year-display">
-            <span className="year-display__label">Hogwarts Year</span>
+            <span className="year-display__label">
+              Year {currentYear} - Level {currentLevel}
+            </span>
             <span className="year-display__value">{currentYear}</span>
           </div>
 
@@ -84,7 +86,7 @@ export const ProgressTracker: React.FC = () => {
                 />
               </div>
               <div className="year-progress__text">
-                {experiencePoints} / {xpNeededForNextYear} XP
+                {experiencePoints} / {XP_PER_LEVEL} XP to next level
               </div>
             </div>
           )}

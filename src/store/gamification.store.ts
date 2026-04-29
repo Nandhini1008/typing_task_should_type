@@ -26,6 +26,7 @@ export interface GamificationState {
 
     // Level/Year progression (Hogwarts Year 1-7)
     currentYear: number;
+    currentLevel: number; // Track individual levels (5 levels = 1 year)
     experiencePoints: number;
     addExperience: (xp: number) => void;
 
@@ -145,6 +146,7 @@ export const useGamificationStore = create<GamificationState>()(
             housePoints: 0,
             totalPoints: 0,
             currentYear: 1,
+            currentLevel: 1,
             experiencePoints: 0,
             currentCombo: 0,
             maxCombo: 0,
@@ -178,28 +180,41 @@ export const useGamificationStore = create<GamificationState>()(
 
             addExperience: (xp) => {
                 set((state) => {
-                    const newXP = state.experiencePoints + xp;
-                    const xpNeeded = state.currentYear * 500; // 500xp per year
-
+                    const XP_PER_LEVEL = 500; // 500 XP per level
+                    const LEVELS_PER_YEAR = 5; // 5 levels = 1 year
+                    
+                    let newXP = state.experiencePoints + xp;
+                    let newLevel = state.currentLevel;
                     let newYear = state.currentYear;
-                    let remainingXP = newXP;
                     let leveledUp = false;
 
-                    // Level up if enough XP
-                    while (remainingXP >= xpNeeded && newYear < 7) {
-                        remainingXP -= xpNeeded;
-                        newYear++;
-                        leveledUp = true;
+                    // Level up logic
+                    while (newXP >= XP_PER_LEVEL && newYear < 7) {
+                        newXP -= XP_PER_LEVEL;
+                        newLevel++;
 
-                        // Check Year 7 achievement
-                        if (newYear === 7) {
-                            get().unlockAchievement('year_seven');
+                        // Every 5 levels = 1 year
+                        if (newLevel % LEVELS_PER_YEAR === 1 && newLevel > 1) {
+                            newYear++;
+                            leveledUp = true;
+
+                            // Check Year 7 achievement
+                            if (newYear === 7) {
+                                get().unlockAchievement('year_seven');
+                            }
+                        }
+
+                        // Cap at Year 7
+                        if (newYear >= 7) {
+                            newYear = 7;
+                            break;
                         }
                     }
 
                     return {
+                        currentLevel: newLevel,
                         currentYear: newYear,
-                        experiencePoints: remainingXP,
+                        experiencePoints: newXP,
                         showLevelUp: leveledUp
                     };
                 });
@@ -294,6 +309,7 @@ export const useGamificationStore = create<GamificationState>()(
                     housePoints: 0,
                     totalPoints: 0,
                     currentYear: 1,
+                    currentLevel: 1,
                     experiencePoints: 0,
                     currentCombo: 0,
                     maxCombo: 0,
