@@ -13,6 +13,7 @@
         margin-bottom: 2rem;
         padding-bottom: 1.5rem;
         border-bottom: 2px solid var(--house-secondary);
+        flex-wrap: wrap;
     }
 
     &__year {
@@ -196,6 +197,176 @@
     }
 }
 
+.change-house-btn {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.8) 0%, rgba(101, 67, 33, 0.8) 100%);
+    border: 2px solid var(--wand-brown);
+    border-radius: 10px;
+    color: var(--text-light);
+    font-family: var(--font-parchment);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(135deg, rgba(139, 69, 19, 1) 0%, rgba(101, 67, 33, 1) 100%);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.change-house-modal {
+    text-align: center;
+    padding: 2rem;
+    max-width: 700px;
+
+    &__title {
+        font-family: var(--font-magical);
+        font-size: 2.5rem;
+        color: var(--sparkle-gold);
+        margin-bottom: 1.5rem;
+        text-shadow: var(--glow-gold);
+    }
+
+    &__warning {
+        font-family: var(--font-parchment);
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-bottom: 1rem;
+
+        strong {
+            color: #ef4444;
+            font-weight: 700;
+        }
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 1.5rem 0;
+        text-align: left;
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid #ef4444;
+        border-radius: 10px;
+        padding: 1.5rem;
+
+        li {
+            font-family: var(--font-parchment);
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            padding-left: 0.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__confirm {
+        font-family: var(--font-parchment);
+        font-size: 1.2rem;
+        color: var(--text-gold);
+        margin: 1.5rem 0;
+        font-weight: 600;
+    }
+
+    &__cancel {
+        margin-top: 1.5rem;
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+.house-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.house-card {
+    padding: 2rem 1.5rem;
+    background: linear-gradient(135deg, rgba(22, 33, 62, 0.8) 0%, rgba(10, 10, 18, 0.9) 100%);
+    border: 3px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    &__icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+    }
+
+    &__name {
+        font-family: var(--font-magical);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    &__trait {
+        font-family: var(--font-parchment);
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+
+    &--gryffindor {
+        border-color: #740001;
+
+        &:hover {
+            background: linear-gradient(135deg, rgba(116, 0, 1, 0.3) 0%, rgba(211, 166, 37, 0.3) 100%);
+            border-color: #D3A625;
+            box-shadow: 0 0 30px rgba(211, 166, 37, 0.5);
+        }
+    }
+
+    &--slytherin {
+        border-color: #1A472A;
+
+        &:hover {
+            background: linear-gradient(135deg, rgba(26, 71, 42, 0.3) 0%, rgba(170, 170, 170, 0.3) 100%);
+            border-color: #AAAAAA;
+            box-shadow: 0 0 30px rgba(170, 170, 170, 0.5);
+        }
+    }
+
+    &--ravenclaw {
+        border-color: #0E1A40;
+
+        &:hover {
+            background: linear-gradient(135deg, rgba(14, 26, 64, 0.3) 0%, rgba(148, 107, 45, 0.3) 100%);
+            border-color: #946B2D;
+            box-shadow: 0 0 30px rgba(148, 107, 45, 0.5);
+        }
+    }
+
+    &--hufflepuff {
+        border-color: #FFD700;
+
+        &:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-color: #ECCC68;
+            box-shadow: 0 0 30px rgba(236, 204, 104, 0.5);
+        }
+    }
+}
+
 @keyframes badge-glow {
 
     0%,
@@ -235,5 +406,48 @@
 
     .house-points__value {
         font-size: 2.5rem;
+    }
+
+    .change-house-btn {
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 0.7rem 1.2rem;
+    }
+
+    .change-house-modal {
+        padding: 1.5rem;
+
+        &__title {
+            font-size: 2rem;
+        }
+
+        &__warning {
+            font-size: 1rem;
+        }
+
+        &__list li {
+            font-size: 1rem;
+        }
+    }
+
+    .house-selection-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .house-card {
+        padding: 1.5rem 1rem;
+
+        &__icon {
+            font-size: 3rem;
+        }
+
+        &__name {
+            font-size: 1.3rem;
+        }
+
+        &__trait {
+            font-size: 0.9rem;
+        }
     }
 }

@@ -163,6 +163,24 @@ export const THEMES: Record<string, Theme> = {
             border: '#504945',
         },
     },
+    'harry-potter': {
+        id: 'harry-potter',
+        name: 'Harry Potter',
+        colors: {
+            background: '#0a0a12',
+            surface: '#f4e8d0',
+            text: '#1a1410',
+            textSecondary: '#2a1f15',
+            primary: '#740001',
+            secondary: '#D3A625',
+            error: '#b91c1c',
+            correct: '#15803d',
+            incorrect: '#b91c1c',
+            extra: '#92400e',
+            caret: '#740001',
+            border: '#e6d7b8',
+        },
+    },
 };
 
 export const getTheme = (themeId: string): Theme => {

@@ -6,6 +6,7 @@ import { useMetrics } from '@/hooks/useMetrics';
 import { ttsService } from '@/services/tts.service';
 import { useErrorTrackingStore } from '@/store/errorTracking.store';
 import { useSentenceTrackingStore } from '@/store/sentenceTracking.store';
+import { useGamificationStore } from '@/store/gamification.store';
 // import { autoExportService } from '@/services/autoExport.service'; // Available for manual use
 
 export interface TypingTestState {
@@ -29,6 +30,7 @@ export interface TypingTestActions {
     completeTest: () => void;
     reset: () => void;
     hideSuggestion: () => void;
+    generateNewSentence: () => void;
 }
 
 export function useTypingTest(
@@ -144,6 +146,9 @@ export function useTypingTest(
                 char.status = 'correct';
                 setCorrectChars((prev) => prev + 1);
 
+                // Increment combo for correct character
+                useGamificationStore.getState().incrementCombo();
+
                 // Check if the word was previously wrong and now corrected
                 // If user is correcting after seeing the suggestion, stop audio
                 if (errorCountRef.current >= 1 && showWordSuggestion) {
@@ -162,6 +167,9 @@ export function useTypingTest(
             } else {
                 char.status = 'incorrect';
                 setIncorrectChars((prev) => prev + 1);
+
+                // Reset combo on incorrect character
+                useGamificationStore.getState().resetCombo();
 
                 // Track errors for current word
                 if (lastErrorWordRef.current !== currentWord.value) {
@@ -195,6 +203,9 @@ export function useTypingTest(
             wordChars.push(extraChar);
             setExtraChars((prev) => prev + 1);
             setCurrentCharIndex(currentCharIndex + 1);
+            
+            // Reset combo on extra character
+            useGamificationStore.getState().resetCombo();
         }
 
         updatedWords[currentWordIndex] = currentWord;
@@ -338,6 +349,7 @@ export function useTypingTest(
         ttsService.cancel();
         ttsService.clearAllTracking();
 
+        // Reset the SAME words - don't generate new ones
         const resetWords = words.map((word, index) => ({
             ...word,
             characters: word.value.split('').map((char) => ({
@@ -348,10 +360,88 @@ export function useTypingTest(
             isCompleted: false,
         }));
         setWords(resetWords);
+        
+        // Reset error tracking
+        setShowWordSuggestion(false);
+        errorCountRef.current = 0;
+        lastErrorWordRef.current = '';
     };
 
     const hideSuggestion = () => {
         setShowWordSuggestion(false);
+    };
+
+    const generateNewSentence = async () => {
+        try {
+            setIsLoading(true);
+            
+            // Cancel any ongoing audio
+            ttsService.cancel();
+            ttsService.clearAllTracking();
+            
+            let generatedWords: string[];
+
+            // Fetch configuration from backend API (or use default)
+            const { configService } = await import('@/services/config.service');
+            const config = await configService.getConfig();
+            const { wordCount: configWordCount, complexity } = config;
+
+            try {
+                // Always try to generate with Gemini first
+                const { geminiService } = await import('@/services/gemini.service');
+                generatedWords = await geminiService.generateSentences({
+                    wordCount: configWordCount || wordCount,
+                    complexity: complexity as 'easy' | 'medium' | 'hard',
+                });
+                console.log('Generated NEW sentence:', geminiService.getLastGeneratedSentence());
+
+                // Store the expected sentence for comparison
+                const fullSentence = geminiService.getLastGeneratedSentence();
+                if (fullSentence) {
+                    setExpectedSentence(fullSentence);
+                    originalSentenceRef.current = fullSentence;
+                }
+            } catch (llmError) {
+                console.warn('Failed to generate with LLM, falling back to wordlist:', llmError);
+                // Fallback to static wordlist
+                const wordlist = await loadWordlist('english_1k');
+                generatedWords = generateTestWords(wordlist, wordCount);
+            }
+
+            const newWords: Word[] = generatedWords.map((word, index) => ({
+                id: `word-${Date.now()}-${index}`,
+                value: word,
+                characters: word.split('').map((char) => ({
+                    value: char,
+                    status: 'pending',
+                })),
+                isActive: index === 0,
+                isCompleted: false,
+            }));
+
+            // Reset all state
+            setWords(newWords);
+            setCurrentWordIndex(0);
+            setCurrentCharIndex(0);
+            setCorrectChars(0);
+            setIncorrectChars(0);
+            setExtraChars(0);
+            setIsTestComplete(false);
+            setStartTime(null);
+            setShowWordSuggestion(false);
+            errorCountRef.current = 0;
+            lastErrorWordRef.current = '';
+            
+            // Start new tracking sessions
+            startNewTest();
+            startNewSentenceTest();
+            
+            setIsLoading(false);
+        } catch (err) {
+            console.error('Failed to generate new sentence:', err);
+            setError('Failed to generate new sentence');
+            setIsLoading(false);
+        }
     };
 
     return {
@@ -375,6 +465,7 @@ export function useTypingTest(
             completeTest,
             reset,
             hideSuggestion,
+            generateNewSentence,
         },
         isLoading,
         error,

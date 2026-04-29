@@ -35,7 +35,7 @@
         font-size: var(--font-size-typing, 1.5rem);
         line-height: 1.8;
         font-family: 'JetBrains Mono', 'Courier New', monospace;
-        color: var(--color-text-secondary);
+        color: var(--color-text);
     }
 
     &__word {
@@ -45,6 +45,7 @@
         &--active {
             .typing-area__char {
                 color: var(--color-text);
+                font-weight: 700;
             }
         }
 
@@ -56,26 +57,30 @@
     &__char {
         position: relative;
         transition: color 0.1s ease;
+        font-weight: 500;
 
         &--pending {
-            color: var(--color-text-secondary);
+            color: var(--color-text-secondary) !important;
+            font-weight: 700 !important;
         }
 
         &--correct {
-            color: var(--color-correct);
+            color: var(--color-correct) !important;
+            font-weight: 700 !important;
         }
 
         &--incorrect {
-            color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.2);
+            color: var(--color-incorrect) !important;
+            background-color: rgba(252, 129, 129, 0.3) !important;
             border-radius: 3px;
             padding: 0 2px;
-            font-weight: 600;
+            font-weight: 700 !important;
         }
 
         &--extra {
-            color: var(--color-extra);
-            opacity: 0.8;
+            color: var(--color-extra) !important;
+            opacity: 0.9;
+            font-weight: 700 !important;
         }
     }
 }

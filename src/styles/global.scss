@@ -12,6 +12,11 @@ body {
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
+
+    // Mobile optimizations
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent; // Remove tap highlight on mobile
 }
 
 #root {
@@ -19,11 +24,15 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-// Magical cursor
-body {
-    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23D3A625" d="M7 2l12 12-5 5-7-7z"/><path fill="%238B4513" d="M7 2l2 2-2 2-2-2z"/></svg>') 8 8, auto;
+// Magical cursor (desktop only)
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23D3A625" d="M7 2l12 12-5 5-7-7z"/><path fill="%238B4513" d="M7 2l2 2-2 2-2-2z"/></svg>') 8 8, auto;
+    }
 }
 
 // Utility classes
@@ -52,4 +61,43 @@ body {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+}
+
+// Mobile-specific global styles
+@media (max-width: $breakpoint-md) {
+    body {
+        font-size: 16px; // Prevent zoom on input focus in iOS
+
+        // Improve touch scrolling
+        -webkit-overflow-scrolling: touch;
+    }
+
+    // Ensure touch-friendly sizing
+    button,
+    a,
+    input,
+    .clickable {
+        min-height: 44px; // Apple HIG minimum
+        min-width: 44px;
+    }
+
+    // Better text readability on mobile
+    p,
+    li,
+    span {
+        line-height: 1.6;
+    }
+}
+
+// Extra small devices
+@media (max-width: 480px) {
+    .container {
+        padding: 0 $spacing-2;
+    }
+
+    // Ensure no content overflow
+    * {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
 }

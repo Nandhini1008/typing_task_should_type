@@ -43,16 +43,18 @@
     /* Correct letter - green glow */
     --incorrect-magic: #FC8181;
     /* Wrong letter - soft red */
-    --pending-magic: #A0AEC0;
-    /* Not typed yet */
+    --pending-magic: #5a4a3a;
+    /* Not typed yet - dark brown for parchment */
 
     /* === TEXT COLORS === */
     --text-light: #f7fafc;
     /* Bright white */
     --text-gold: #D3A625;
     /* Golden text */
-    --text-muted: #CBD5E0;
-    /* Muted text */
+    --text-muted: #6b5d4f;
+    /* Muted text - darker for visibility */
+    --text-dark: #3d2f1f;
+    /* Dark brown for main text */
 
     /* === SHADOWS & GLOWS === */
     --glow-gold: 0 0 20px rgba(211, 166, 37, 0.6);

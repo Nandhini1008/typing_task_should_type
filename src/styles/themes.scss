@@ -80,4 +80,19 @@
     --color-border: #434c5e;
 }
 
+[data-theme='harry-potter'] {
+    --color-background: #0a0a12;
+    --color-surface: #f4e8d0;
+    --color-text: #1a1410;
+    --color-text-secondary: #2a1f15;
+    --color-primary: #740001;
+    --color-secondary: #D3A625;
+    --color-error: #b91c1c;
+    --color-correct: #15803d;
+    --color-incorrect: #b91c1c;
+    --color-extra: #92400e;
+    --color-caret: #740001;
+    --color-border: #e6d7b8;
+}
+
 // Add more themes as needed...
