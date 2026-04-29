@@ -361,10 +361,24 @@
 @media (max-width: $breakpoint-md) {
     .typing-test {
         padding: $spacing-2;
+        min-height: 100vh;
+
+        &--magical {
+            padding: $spacing-3;
+        }
+
+        &__header {
+            margin-bottom: $spacing-4;
+        }
 
         &__metrics {
             gap: $spacing-4;
             flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        &__main {
+            margin: $spacing-4 0;
         }
 
         &__actions {
@@ -375,38 +389,196 @@
             .magical-button {
                 width: 100%;
                 max-width: 300px;
+                font-size: 1rem !important;
+                padding: 0.9rem 1.5rem !important;
             }
+        }
+
+        &__footer {
+            margin-top: $spacing-4;
         }
     }
 
     .magical-title {
         font-size: 2rem;
+        margin-bottom: 1rem;
+
+        .sparkle {
+            font-size: 1.5rem;
+        }
+    }
+
+    .metric-card {
+        padding: 0.8rem 1.2rem;
+        min-width: 140px;
+
+        .metric-icon {
+            font-size: 1.5rem;
+        }
     }
 
     .parchment-scroll {
         padding: 1.5rem;
+        border-width: 3px;
+
+        &::before,
+        &::after {
+            width: 30px;
+            height: 30px;
+            top: -8px;
+        }
+
+        &::before {
+            left: 15px;
+        }
+
+        &::after {
+            right: 15px;
+        }
     }
 
     .celebration {
+        padding: 2rem 1rem;
+
         &__title {
             font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         &__message {
             font-size: 1.3rem;
+            margin-bottom: 2rem;
         }
 
         &__stats {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        &__button {
+            font-size: 1.2rem !important;
+            padding: 1rem 2rem !important;
         }
     }
 
     .stat-card {
         padding: 1.5rem;
 
+        &__icon {
+            font-size: 2.5rem;
+        }
+
         &__value {
             font-size: 2.5rem;
+        }
+
+        &__label {
+            font-size: 1rem;
+        }
+    }
+}
+
+// Extra small mobile devices
+@media (max-width: 480px) {
+    .typing-test {
+        padding: $spacing-1;
+
+        &--magical {
+            padding: $spacing-2;
+        }
+
+        &__header {
+            margin-bottom: $spacing-3;
+        }
+
+        &__main {
+            margin: $spacing-3 0;
+        }
+
+        &__actions {
+            .magical-button {
+                font-size: 0.95rem !important;
+                padding: 0.8rem 1.2rem !important;
+            }
+        }
+    }
+
+    .magical-title {
+        font-size: 1.6rem;
+
+        .sparkle {
+            font-size: 1.2rem;
+        }
+    }
+
+    .metric-card {
+        padding: 0.6rem 1rem;
+        min-width: 120px;
+        font-size: 0.9rem;
+
+        .metric-icon {
+            font-size: 1.3rem;
+        }
+    }
+
+    .parchment-scroll {
+        padding: 1rem;
+        border-width: 2px;
+        border-radius: 15px;
+
+        &::before,
+        &::after {
+            width: 25px;
+            height: 25px;
+            top: -6px;
+        }
+
+        &::before {
+            left: 10px;
+        }
+
+        &::after {
+            right: 10px;
+        }
+    }
+
+    .celebration {
+        padding: 1.5rem 0.5rem;
+
+        &__title {
+            font-size: 2rem;
+        }
+
+        &__message {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        &__stats {
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        &__button {
+            font-size: 1.1rem !important;
+            padding: 0.9rem 1.5rem !important;
+        }
+    }
+
+    .stat-card {
+        padding: 1.2rem;
+
+        &__icon {
+            font-size: 2rem;
+        }
+
+        &__value {
+            font-size: 2rem;
+        }
+
+        &__label {
+            font-size: 0.9rem;
         }
     }
 }

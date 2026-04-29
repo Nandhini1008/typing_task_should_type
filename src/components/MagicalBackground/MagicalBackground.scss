@@ -7,6 +7,7 @@
     z-index: -1;
     background: var(--magic-night-sky);
     overflow: hidden;
+    pointer-events: none;
 
     &__stars {
         position: absolute;
@@ -114,12 +115,14 @@
     .magical-background__castle {
         width: 400px;
         height: 150px;
+        opacity: 0.1;
     }
 
     .castle__tower {
         &--left {
             width: 50px;
             height: 90px;
+            left: 30px;
         }
 
         &--center {
@@ -130,6 +133,58 @@
         &--right {
             width: 60px;
             height: 100px;
+            right: 30px;
         }
+
+        &::before {
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid #2a2a3e;
+            top: -25px;
+        }
+    }
+
+    .particle {
+        width: 3px;
+        height: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .magical-background__castle {
+        width: 300px;
+        height: 120px;
+        opacity: 0.08;
+    }
+
+    .castle__tower {
+        &--left {
+            width: 40px;
+            height: 70px;
+            left: 20px;
+        }
+
+        &--center {
+            width: 60px;
+            height: 100px;
+        }
+
+        &--right {
+            width: 50px;
+            height: 80px;
+            right: 20px;
+        }
+
+        &::before {
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 25px solid #2a2a3e;
+            top: -20px;
+        }
+    }
+
+    .particle {
+        width: 2px;
+        height: 2px;
     }
 }
