@@ -1,0 +1,538 @@
+/**
+ * Mobile-First Responsive Styles
+ * Ensures the app works on all mobile devices
+ */
+@use './variables.scss' as *;
+
+// Mobile-first base styles
+@media (max-width: 1024px) {
+    // Tablet adjustments
+    .typing-test {
+        &--magical {
+            padding: 1.5rem 1rem;
+        }
+    }
+
+    .magical-title {
+        font-size: 2.2rem;
+    }
+
+    .parchment-scroll {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    // Mobile devices
+    .typing-test {
+        padding: 1rem 0.5rem !important;
+        min-height: 100vh;
+
+        &--magical {
+            padding: 1rem 0.5rem !important;
+            max-width: 100%;
+        }
+
+        &__header {
+            margin-bottom: 1rem;
+            padding: 0 0.5rem;
+        }
+
+        &__main {
+            margin: 1rem 0;
+            padding: 0 0.25rem;
+        }
+
+        &__footer {
+            margin-top: 1.5rem;
+            padding: 0 0.5rem;
+        }
+
+        &__metrics {
+            flex-direction: row;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        &__actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            align-items: center;
+
+            button {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+    }
+
+    .magical-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 0.75rem;
+
+        .sparkle {
+            font-size: 1.4rem;
+        }
+    }
+
+    .metric-card {
+        padding: 0.6rem 1rem;
+        min-width: 130px;
+        flex: 0 1 auto;
+
+        .metric-icon {
+            font-size: 1.4rem;
+        }
+    }
+
+    .parchment-scroll {
+        padding: 1.25rem 1rem !important;
+        border-width: 3px;
+        margin: 0 0.25rem;
+
+        &::before,
+        &::after {
+            width: 28px;
+            height: 28px;
+            top: -7px;
+        }
+    }
+
+    .progress-tracker {
+        padding: 1.25rem !important;
+        margin-bottom: 1rem;
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+
+        &__house {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        &__stats {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+    }
+
+    .house-badge {
+        padding: 0.75rem 1.25rem;
+
+        &__icon {
+            font-size: 2.5rem;
+        }
+
+        &__name {
+            font-size: 1.1rem;
+        }
+    }
+
+    .change-house-btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+    }
+
+    // Celebration screen
+    .celebration {
+        padding: 1.5rem 0.75rem;
+
+        &__title {
+            font-size: 2.2rem;
+        }
+
+        &__message {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+        }
+
+        &__stats {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        &__button {
+            font-size: 1.15rem !important;
+            padding: 0.95rem 2rem !important;
+        }
+    }
+
+    .stat-card {
+        padding: 1.25rem;
+
+        &__icon {
+            font-size: 2.5rem;
+        }
+
+        &__value {
+            font-size: 2.2rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    // Small mobile devices
+    .typing-test {
+        padding: 0.75rem 0.25rem !important;
+
+        &--magical {
+            padding: 0.75rem 0.25rem !important;
+        }
+
+        &__header {
+            margin-bottom: 0.75rem;
+            padding: 0 0.25rem;
+        }
+
+        &__main {
+            margin: 0.75rem 0;
+        }
+
+        &__metrics {
+            gap: 0.5rem;
+        }
+
+        &__actions {
+            gap: 0.6rem;
+
+            button {
+                max-width: 260px;
+                font-size: 0.95rem !important;
+                padding: 0.8rem 1.25rem !important;
+            }
+        }
+    }
+
+    .magical-title {
+        font-size: 1.5rem !important;
+
+        .sparkle {
+            font-size: 1.2rem;
+        }
+    }
+
+    .metric-card {
+        padding: 0.5rem 0.8rem;
+        min-width: 110px;
+
+        .metric-icon {
+            font-size: 1.2rem;
+        }
+
+        // Make text smaller
+        font-size: 0.85rem;
+    }
+
+    .parchment-scroll {
+        padding: 1rem 0.75rem !important;
+        border-width: 2px;
+        border-radius: 12px;
+
+        &::before,
+        &::after {
+            width: 24px;
+            height: 24px;
+            top: -6px;
+        }
+
+        &::before {
+            left: 12px;
+        }
+
+        &::after {
+            right: 12px;
+        }
+    }
+
+    .progress-tracker {
+        padding: 1rem !important;
+        border-width: 2px;
+
+        &__stats {
+            gap: 0.6rem;
+        }
+    }
+
+    .house-badge {
+        padding: 0.6rem 1rem;
+
+        &__icon {
+            font-size: 2rem;
+        }
+
+        &__name {
+            font-size: 1rem;
+        }
+    }
+
+    .house-points {
+        &__value {
+            font-size: 2.2rem;
+        }
+
+        &__label {
+            font-size: 0.85rem;
+        }
+    }
+
+    .change-house-btn {
+        max-width: 240px;
+        padding: 0.65rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .year-display {
+        &__label {
+            font-size: 1.1rem;
+        }
+
+        &__value {
+            font-size: 2rem;
+        }
+    }
+
+    .stat {
+        padding: 0.75rem;
+
+        &__icon {
+            font-size: 1.6rem;
+        }
+
+        &__value {
+            font-size: 1.6rem;
+        }
+
+        &__label {
+            font-size: 0.8rem;
+        }
+    }
+
+    .celebration {
+        padding: 1.25rem 0.5rem;
+
+        &__title {
+            font-size: 1.8rem;
+        }
+
+        &__message {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        &__stats {
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        &__button {
+            font-size: 1rem !important;
+            padding: 0.85rem 1.75rem !important;
+        }
+    }
+
+    .stat-card {
+        padding: 1rem;
+
+        &__icon {
+            font-size: 2rem;
+        }
+
+        &__value {
+            font-size: 1.8rem;
+        }
+
+        &__label {
+            font-size: 0.95rem;
+        }
+    }
+
+    // Modal adjustments
+    .change-house-modal {
+        padding: 1.25rem !important;
+
+        &__title {
+            font-size: 1.6rem;
+        }
+
+        &__warning {
+            font-size: 0.95rem;
+        }
+
+        &__list {
+            padding: 1rem;
+            margin: 1rem 0;
+
+            li {
+                font-size: 0.9rem;
+                margin-bottom: 0.6rem;
+            }
+        }
+
+        &__confirm {
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+    }
+
+    .house-selection-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin: 1.25rem 0;
+    }
+
+    .house-card {
+        padding: 1.25rem 1rem;
+
+        &__icon {
+            font-size: 2.8rem;
+        }
+
+        &__name {
+            font-size: 1.2rem;
+        }
+
+        &__trait {
+            font-size: 0.85rem;
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    // Extra small devices
+    .typing-test {
+        padding: 0.5rem 0.15rem !important;
+
+        &--magical {
+            padding: 0.5rem 0.15rem !important;
+        }
+
+        &__actions button {
+            max-width: 240px;
+            font-size: 0.9rem !important;
+            padding: 0.75rem 1rem !important;
+        }
+    }
+
+    .magical-title {
+        font-size: 1.3rem !important;
+
+        .sparkle {
+            font-size: 1rem;
+        }
+    }
+
+    .metric-card {
+        padding: 0.4rem 0.6rem;
+        min-width: 100px;
+        font-size: 0.8rem;
+
+        .metric-icon {
+            font-size: 1.1rem;
+        }
+    }
+
+    .parchment-scroll {
+        padding: 0.75rem 0.6rem !important;
+    }
+
+    .progress-tracker {
+        padding: 0.75rem !important;
+    }
+
+    .house-badge {
+        padding: 0.5rem 0.8rem;
+
+        &__icon {
+            font-size: 1.8rem;
+        }
+
+        &__name {
+            font-size: 0.9rem;
+        }
+    }
+
+    .change-house-btn {
+        max-width: 220px;
+        padding: 0.6rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .celebration {
+        &__title {
+            font-size: 1.6rem;
+        }
+
+        &__message {
+            font-size: 0.95rem;
+        }
+
+        &__button {
+            font-size: 0.95rem !important;
+            padding: 0.8rem 1.5rem !important;
+        }
+    }
+
+    .stat-card {
+        padding: 0.85rem;
+
+        &__icon {
+            font-size: 1.8rem;
+        }
+
+        &__value {
+            font-size: 1.6rem;
+        }
+
+        &__label {
+            font-size: 0.85rem;
+        }
+    }
+
+    .house-card {
+        padding: 1rem 0.75rem;
+
+        &__icon {
+            font-size: 2.5rem;
+        }
+
+        &__name {
+            font-size: 1.1rem;
+        }
+
+        &__trait {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+// Landscape mode on mobile
+@media (max-width: 768px) and (orientation: landscape) {
+    .typing-test {
+        &__header {
+            margin-bottom: 0.5rem;
+        }
+
+        &__main {
+            margin: 0.5rem 0;
+        }
+    }
+
+    .magical-title {
+        font-size: 1.4rem !important;
+    }
+
+    .parchment-scroll {
+        padding: 1rem !important;
+    }
+
+    .progress-tracker {
+        padding: 0.75rem !important;
+        margin-bottom: 0.5rem;
+    }
+}
